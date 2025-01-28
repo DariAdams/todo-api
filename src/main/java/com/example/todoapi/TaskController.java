@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/tasks")
 public class TaskController {
 
-    @GetMapping(produces = "application/json")
+    @GetMapping
     public String getAllTasks() {
-        return "{\"message\": \"This will return all tasks!\"}";
+        return "This will return all tasks!";
     }
 }
