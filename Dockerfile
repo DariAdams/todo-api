@@ -1,23 +1,14 @@
-# Use OpenJDK 17 as base image
+# Use OpenJDK 17
 FROM openjdk:17-jdk-slim
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the Maven project files
-COPY pom.xml .
+# Copy the Maven build JAR file
+COPY target/todo-api-1.0.0.jar app.jar
 
-# Install Maven and download dependencies
-RUN apt-get update && apt-get install -y maven && mvn dependency:go-offline -B
-
-# Copy the entire project source code
-COPY src ./src
-
-# Build the application
-RUN mvn clean package -DskipTests
-
-# Expose the port used by Spring Boot
+# Expose the correct port
 EXPOSE 10000
 
 # Run the application
-CMD ["java", "-jar", "target/todo-api-1.0.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "app.jar"]
